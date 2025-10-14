@@ -1,0 +1,12 @@
+numpy
+pandas
+scikit-learn
+yfinance
+matplotlib
+plotly
+plotly
+nbformat
+ipywidgets
+cvxpy
+PyPortfolioOpt
+black
