@@ -56,8 +56,7 @@ def build_features(prices, volume=None, esg_scores=None):
         to_concat.append(volume_renamed)
     to_concat += [trend_feat, mom_feat, vol_feat]
     feature_df = pd.concat(to_concat, axis=1)
-    feature_df = feature_df.dropna(how="any").reset_index()  # Date as column
-
+    feature_df = feature_df.dropna(how="any").reset_index() 
     id_vars = ['Date']
     value_vars = [col for col in feature_df.columns if col != 'Date']
     tidy_df = feature_df.melt(id_vars=id_vars, value_vars=value_vars, var_name="Ticker_Feature", value_name="Value")
@@ -70,21 +69,16 @@ def build_features(prices, volume=None, esg_scores=None):
         final_df = final_df.merge(esg_scores, on='Ticker', how='left')
 
     cols_order = ['Date', 'Ticker']
-    # Price and volume
     if 'price' in final_df.columns:
         cols_order.append('price')
     if volume is not None and 'volume' in final_df.columns:
         cols_order.append('volume')
-    # Trend features
     trend_cols = ['ema_10', 'ema_50', 'sma_10', 'sma_50', 'price_sma10_ratio', 'sma10_sma50_ratio']
     cols_order += [c for c in trend_cols if c in final_df.columns]
-    # Momentum features
     mom_cols = ['momentum_5d', 'momentum_21d', 'macd', 'macd_macd_signal']
     cols_order += [c for c in mom_cols if c in final_df.columns]
-    # Volatility features
     vol_cols = ['vol_5d', 'vol_21d', 'ewm_vol_21d']
     cols_order += [c for c in vol_cols if c in final_df.columns]
-    # ESG last
     if esg_scores is not None and 'esg_score' in final_df.columns:
         cols_order.append('esg_score')
 

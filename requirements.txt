@@ -1,6 +1,7 @@
 numpy
 pandas
 scikit-learn
+seaborn
 yfinance
 matplotlib
 plotly
@@ -10,3 +11,5 @@ ipywidgets
 cvxpy
 PyPortfolioOpt
 black
+tensorflow 
+keras
